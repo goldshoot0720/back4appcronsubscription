@@ -1,0 +1,18 @@
+name: Fetch Subscription 37
+
+on:
+  schedule:
+    - cron: "6 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch 37 food records
+        run: |
+          curl -s -G "https://parseapi.back4app.com/classes/subscription" \
+            --data-urlencode "limit=37" \
+            --data-urlencode "order=-createdAt" \
+            -H "X-Parse-Application-Id: ${{ secrets.BACK4APP_APP_ID }}" \
+            -H "X-Parse-REST-API-Key: ${{ secrets.BACK4APP_REST_KEY }}"
